@@ -101,13 +101,18 @@ if st.button("💰 Calculer la Prime", use_container_width=True):
         features_cluster = np.array([[age, bmi, children, smoker_encoded, sex_encoded]])
         features_cluster_scaled = scaler_cluster.transform(features_cluster)
         segment = int(kmeans.predict(features_cluster_scaled)[0])
-        
         features_glm = np.array([[age, bmi, children, sex_encoded, 
-                                  smoker_encoded, region_encoded, segment]])
+                          smoker_encoded, region_encoded, segment]])
         features_glm_scaled = scaler_glm.transform(features_glm)
-        features_glm_sm = sm.add_constant(features_glm_scaled)
-        
-        predicted_premium = float(glm_model.predict(features_glm_sm)[0])
+
+        # Vérifier si le modèle est statsmodels ou sklearn
+        try:
+            # Si statsmodels GLM
+            features_glm_sm = sm.add_constant(features_glm_scaled, has_constant='add')
+            predicted_premium = float(glm_model.predict(features_glm_sm)[0])
+        except:
+            # Si sklearn GammaRegressor
+            predicted_premium = float(glm_model.predict(features_glm_scaled)[0])
         segment_multiplier = float(premium_multipliers[segment])
         base_premium = float(metrics['base_premium'])
         
