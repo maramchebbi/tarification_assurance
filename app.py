@@ -5,6 +5,15 @@ import pickle
 import statsmodels.api as sm
 
 st.set_page_config(
+    page_title="Votre Titre",
+    page_icon="🔍",
+    layout="wide"
+)
+
+# Forcer le mode texte brut pour éviter regex bugs
+import os
+os.environ['STREAMLIT_MARKDOWN_AUTOLINK'] = 'false'
+st.set_page_config(
     page_title="Tarification Assurance GLM - Maram Chebbi",
     page_icon="💰",
     layout="wide"
