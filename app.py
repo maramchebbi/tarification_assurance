@@ -3,21 +3,17 @@ import numpy as np
 import pandas as pd
 import pickle
 import statsmodels.api as sm
-
-st.set_page_config(
-    page_title="Votre Titre",
-    page_icon="🔍",
-    layout="wide"
-)
-
-# Forcer le mode texte brut pour éviter regex bugs
 import os
-os.environ['STREAMLIT_MARKDOWN_AUTOLINK'] = 'false'
+
+# IMPORTANT : set_page_config DOIT être la PREMIÈRE commande Streamlit
 st.set_page_config(
     page_title="Tarification Assurance GLM - Maram Chebbi",
     page_icon="💰",
     layout="wide"
 )
+
+# Forcer le mode texte brut pour éviter regex bugs
+os.environ['STREAMLIT_MARKDOWN_AUTOLINK'] = 'false'
 
 @st.cache_resource
 def load_models():
@@ -65,7 +61,7 @@ st.markdown("""
 
 st.title("💰 Moteur de Tarification d'Assurance")
 st.markdown("### Calcul de Prime avec Modélisation GLM & Segmentation Client")
-st.markdown("**Développé par** : Maram Chebbi | ESPRIT & IRA Le Mans")
+st.write("Développé par : Maram Chebbi | ESPRIT & IRA Le Mans")
 st.markdown("---")
 
 if not models_loaded:
@@ -197,7 +193,7 @@ if st.button("💰 Calculer la Prime", use_container_width=True):
 st.markdown("---")
 
 with st.expander("📚 À propos du modèle"):
-    st.markdown("""
+    st.write(f"""
     ### Méthodologie
     
     **Modèle GLM (Generalized Linear Model)**
@@ -210,9 +206,11 @@ with st.expander("📚 À propos du modèle"):
     - Basé sur: Âge, BMI, Statut fumeur, Nombre d'enfants
     
     **Performance**
-    - R² Score: {:.3f}
-    - Erreur moyenne: ${:.2f}
-    - Dataset: {} clients
-    """.format(metrics['test_r2'], metrics['test_mae'], metrics['dataset_size']))
+    - R² Score: {metrics['test_r2']:.3f}
+    - Erreur moyenne: ${metrics['test_mae']:.2f}
+    - Dataset: {metrics['dataset_size']} clients
+    """)
 
 st.markdown("---")
+st.caption("Développé par Maram Chebbi - Data Science & Actuariat")
+st.text("Contact: chebbimaram0[at]gmail.com")
