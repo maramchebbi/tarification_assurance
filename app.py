@@ -207,4 +207,22 @@ with st.expander("📚 À propos du modèle"):
     """.format(metrics['test_r2'], metrics['test_mae'], metrics['dataset_size']))
 
 st.markdown("---")
-st.markdown("**📧 Contact** : chebbimaram0@gmail.com | [LinkedIn](https://linkedin.com/in/maramchebbi) | [GitHub](https://github.com/maramchebbi)")
+st.markdown("### 📞 Contact")
+
+contact_col1, contact_col2, contact_col3, contact_col4 = st.columns(4)
+
+with contact_col1:
+    st.markdown("**📧 Email**")
+    st.caption("chebbimaram0@gmail.com")
+
+with contact_col2:
+    st.markdown("**💼 LinkedIn**")
+    st.markdown("[Profil](https://linkedin.com/in/maramchebbi)")
+
+with contact_col3:
+    st.markdown("**💻 GitHub**")
+    st.markdown("[Repos](https://github.com/maramchebbi)")
+
+with contact_col4:
+    st.markdown("**📱 Téléphone**")
+    st.caption("+216 53 907 108")
